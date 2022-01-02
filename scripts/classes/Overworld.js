@@ -1,3 +1,5 @@
+import GameObject from "./GameObject.js";
+
 export default class Overworld {
     constructor(config){
         this.canvas = config.canvas;
@@ -12,33 +14,22 @@ export default class Overworld {
         };
         image.src = "../../images/maps/DemoLower.png";
 
-        const x = 5;
-        const y = 6;
+        //Place game objects
 
-        //Draw character
-        const shadow = new Image();
-        shadow.onload = () => {
-            this.ctx.drawImage(
-                shadow,
-                0, 0, //Start crop position, x, y
-                32, 32, //Size of frame, width, height);
-                x * 16-8, y* 16-18, //Character position (16=tile size)
-                32, 32 //Size of sprite
-            );
-        };
-        shadow.src = "../../images/characters/shadow.png";
+        const hero = new GameObject({
+            x: 5,
+            y: 6,
+        });
 
-        //Draw character
-        const hero = new Image();
-        hero.onload = () => {
-            this.ctx.drawImage(
-                hero,
-                0, 0, //Start crop position, x, y
-                32, 32, //Size of frame, width, height);
-                x * 16-8, y* 16-18, //Character position (16=tile size)
-                32, 32 //Size of sprite
-            );
-        };
-        hero.src = "../../images/characters/people/hero.png";
+        const npc1 = new GameObject({
+            x:7,
+            y:9,
+            src: "../../images/characters/people/npc1.png"
+        });
+
+        setTimeout(() => {
+            hero.sprite.draw(this.ctx);
+            npc1.sprite.draw(this.ctx);
+        }, 100);
     }
 }
