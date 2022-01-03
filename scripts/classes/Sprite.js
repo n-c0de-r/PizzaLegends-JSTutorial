@@ -9,8 +9,9 @@ export default class Sprite {
         this.shadow = new Image();
         this.hasShadow = true;
         if (this.hasShadow) {
-            this.shadow.src = "../../images/characters/shadow.png";
-        }
+            this.shadow.src = "/images/characters/shadow.png";
+        };
+
         this.shadow.onload = () => {
             this.shadowIsLoaded = true;
         };
@@ -23,10 +24,11 @@ export default class Sprite {
             idleDown: [
                 [0, 0] //x,y positions in sprite sheet
             ]
-        }
+        };
+
         this.currentAnimation = config.currentAnimation ?? "idleDown";
         this.currentAnimationFrame = 0;
-    }
+    };
 
     draw(ctx) {
         let x = this.gameObject.x * 16 - 8;
@@ -41,5 +43,5 @@ export default class Sprite {
             x, y, //Character position (16=tile size)
             32, 32 //Size of sprite
         );
-    }
-}
+    };
+};
