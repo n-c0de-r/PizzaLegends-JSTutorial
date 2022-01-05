@@ -1,4 +1,5 @@
-import GameObject from "./GameObject.js";
+import Person from "./Person.js";
+import { withGrid } from "../utils.js";
 
 export default class Map {
     constructor(config) {
@@ -33,13 +34,14 @@ window.GameMaps = {
         // midLayerSrc: "",
         upLayerSrc: "/images/maps/DemoUpper.png",
         gameObjects: {
-            hero: new GameObject({
-                x: 5,
-                y: 6,
+            hero: new Person({
+                isPlayerControlled: true,
+                x: withGrid(5),
+                y: withGrid(6),
             }),
-            npc1: new GameObject({
-                x:7,
-                y:9,
+            npc1: new Person({
+                x:withGrid(7),
+                y:withGrid(9),
                 src: "/images/characters/people/npc1.png"    
             })
         }
@@ -48,22 +50,22 @@ window.GameMaps = {
         lowLayerSrc: "/images/maps/KitchenLower.png",
         // midLayerSrc: "",
         upLayerSrc: "/images/maps/KitchenUpper.png",
-        gameObjects: {
-            hero: new GameObject({
-                x: 3,
-                y: 5,
-            }),
-            npca: new GameObject({
-                x:7,
-                y:6,
-                src: "/images/characters/people/npc2.png"    
-            }),
-            npcb: new GameObject({
-                x:10,
-                y:8,
-                src: "/images/characters/people/npc3.png"    
-            })
-        }
+        // gameObjects: {
+        //     hero: new GameObject({
+        //         x: 3,
+        //         y: 5,
+        //     }),
+        //     npca: new GameObject({
+        //         x:7,
+        //         y:6,
+        //         src: "/images/characters/people/npc2.png"    
+        //     }),
+        //     npcb: new GameObject({
+        //         x:10,
+        //         y:8,
+        //         src: "/images/characters/people/npc3.png"    
+        //     })
+        // }
     },
     // Street: {
     //     //

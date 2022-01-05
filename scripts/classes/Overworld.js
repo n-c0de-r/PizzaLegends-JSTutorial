@@ -1,4 +1,5 @@
 import GameMap from "./GameMap.js";
+import DirectionInput from "./Direction.js";
 
 export default class Overworld {
     constructor(config){
@@ -8,7 +9,9 @@ export default class Overworld {
     };
 
     init() {
-        this.map = new GameMap(window.GameMaps.Kitchen);
+        this.map = new GameMap(window.GameMaps.DemoRoom);
+        this.directionInput = new DirectionInput();
+        this.directionInput.init();
         this.render();
     };
     
@@ -20,7 +23,9 @@ export default class Overworld {
             // this.map.drawMidLayer(this.ctx);
 
             Object.values(this.map.gameObjects).forEach(object => {
-                object.x += 0.02;
+                object.update({
+                    key: this.directionInput.direction
+                });
                 object.sprite.draw(this.ctx);
             });
 
