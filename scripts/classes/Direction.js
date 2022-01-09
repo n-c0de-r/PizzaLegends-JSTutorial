@@ -26,6 +26,7 @@ export default class DirectionInput {
                 this.heldDirections.push(dir);
             }
         });
+        
         document.addEventListener("keyup", e => {
             let dir = this.directionMap[e.code];
             let index = this.heldDirections.indexOf(dir);
