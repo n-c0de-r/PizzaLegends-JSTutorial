@@ -15,16 +15,16 @@ export default class Map {
         this.upLayer.src = config.upLayerSrc ?? "";
     };
 
-    drawLowLayer(ctx){
-        ctx.drawImage(this.lowLayer, 0, 0);
+    drawLowLayer(ctx, cameraPerson){
+        ctx.drawImage(this.lowLayer, withGrid(10.5)-cameraPerson.x, withGrid(6)-cameraPerson.y);
     };
 
-    drawMidLayer(ctx){
-        //ctx.drawImage(this.midLayer, 0, 0);
+    drawMidLayer(ctx, cameraPerson){
+        //ctx.drawImage(this.midLayer, withGrid(10.5)-cameraPerson.x, withGrid(6)-cameraPerson.y);
     };
 
-    drawUpLayer(ctx){
-        ctx.drawImage(this.upLayer, 0, 0);
+    drawUpLayer(ctx, cameraPerson){
+        ctx.drawImage(this.upLayer, withGrid(10.5)-cameraPerson.x, withGrid(6)-cameraPerson.y);
     };
 };
 
@@ -40,6 +40,7 @@ window.GameMaps = {
                 y: withGrid(6),
             }),
             npc1: new Person({
+                isPlayerControlled: false,
                 x:withGrid(7),
                 y:withGrid(9),
                 src: "/images/characters/people/npc1.png"    

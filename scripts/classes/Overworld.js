@@ -18,18 +18,26 @@ export default class Overworld {
     render() {
         requestAnimationFrame(() => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            //Draw layers
-            this.map.drawLowLayer(this.ctx);
-            // this.map.drawMidLayer(this.ctx);
 
+            // set camera poerson to follow
+            const cameraPerson = this.map.gameObjects.hero;
+            
+            // Update all Objects Positions
             Object.values(this.map.gameObjects).forEach(object => {
                 object.update({
                     key: this.directionInput.direction
                 });
-                object.sprite.draw(this.ctx);
             });
 
-            this.map.drawUpLayer(this.ctx);
+            //Draw layers
+            this.map.drawLowLayer(this.ctx, cameraPerson);
+            // this.map.drawMidLayer(this.ctx);
+
+            Object.values(this.map.gameObjects).forEach(object => {
+                object.sprite.draw(this.ctx, cameraPerson);
+            });
+
+            this.map.drawUpLayer(this.ctx, cameraPerson);
             this.render();
         });
     };

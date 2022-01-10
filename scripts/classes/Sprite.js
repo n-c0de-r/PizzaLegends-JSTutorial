@@ -1,3 +1,5 @@
+import { withGrid } from "../utils.js";
+
 export default class Sprite {
     constructor(config) {
         this.image = new Image();
@@ -66,9 +68,9 @@ export default class Sprite {
         }
     }
 
-    draw(ctx) {
-        let x = this.gameObject.x - 8;
-        let y = this.gameObject.y - 18;
+    draw(ctx, cameraPerson) {
+        let x = this.gameObject.x - 8 + withGrid(10.5) - cameraPerson.x;
+        let y = this.gameObject.y - 18 + withGrid(6) - cameraPerson.y;
 
         this.shadowIsLoaded && ctx.drawImage(this.shadow,x, y);
 
