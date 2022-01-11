@@ -10,6 +10,7 @@ export default class Overworld {
 
     init() {
         this.map = new GameMap(window.GameMaps.DemoRoom);
+        this.map.mountObjects();
         this.directionInput = new DirectionInput();
         this.directionInput.init();
         this.render();
@@ -25,7 +26,8 @@ export default class Overworld {
             // Update all Objects Positions
             Object.values(this.map.gameObjects).forEach(object => {
                 object.update({
-                    key: this.directionInput.direction
+                    key: this.directionInput.direction,
+                    map: this.map,
                 });
             });
 

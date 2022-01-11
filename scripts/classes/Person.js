@@ -16,30 +16,45 @@ export default class Person extends GameObject {
     }
 
     update(state) {
-        this.updatePosition();
-        this.updateSprite(state);
+        if (this.movementProgressRemaining>0) {
+            this.updatePosition();
+        } else {
+            // More cases for walking will come here
 
-        if (this.isPlayerControlled && this.movementProgressRemaining === 0 && state.key) {
-            this.direction = state.key;
+            // Case: Keyboard ready 
+            if (this.isPlayerControlled && state.key) {
+                this.startBehaviour(state, {
+                    type: "walk",
+                    direction: state.key
+                });
+             }
+             this.updateSprite(state);
+        }
+    }
+
+    startBehaviour(state, behavior) {
+        // Set character direction to behavior 
+        this.direction = behavior.direction;
+        if(behavior.type === "walk") {
+            // stop if space is not free
+            if (state.map.isSpaceTaken(this.x, this.y, this.direction)) return;
+            // walk
+            state.map.moveWall(this.x, this.y, this.direction);
             this.movementProgressRemaining = 16;
         }
     }
 
     updatePosition() {
-        if (this.movementProgressRemaining>0) {
-            const [coordinate, change] = this.directionUpdate[this.direction];
-            this[coordinate] += change;
-            this.movementProgressRemaining -= 1;
-        }
+        const [coordinate, change] = this.directionUpdate[this.direction];
+        this[coordinate] += change;
+        this.movementProgressRemaining -= 1;
     }
 
-    updateSprite(state) {
-        if (this.isPlayerControlled && this.movementProgressRemaining === 0 && !state.key) {
-            this.sprite.setAnimation("idle-"+this.direction);
-            return;
-        }
+    updateSprite() {
         if(this.movementProgressRemaining > 0 ) {
             this.sprite.setAnimation("walk-"+this.direction);
+            return;
         }
+        this.sprite.setAnimation("idle-"+this.direction);
     }
 }
